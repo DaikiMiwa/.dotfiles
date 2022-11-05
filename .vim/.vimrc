@@ -1,27 +1,30 @@
 call plug#begin()
+    " 基本中の基本
     Plug 'tpope/vim-surround'
+    Plug 'simeji/winresizer'
+    Plug 'mattesgroeger/vim-bookmarks'
 
-
+    " 統合開発環境化する
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
     Plug 'prabirshrestha/vim-lsp'
-
     Plug 'mattn/vim-lsp-settings'
     Plug 'mattn/vim-lsp-icons'
 
+    " スニペット
     Plug 'hrsh7th/vim-vsnip'
     Plug 'hrsh7th/vim-vsnip-integ'
 
-    Plug 'mattesgroeger/vim-bookmarks'
-
+    " tex
     Plug 'lervag/vimtex'
 
+    " ファイラー
     Plug 'lambdalisue/fern.vim'
     Plug 'lambdalisue/fern-hijack.vim'
     Plug 'lambdalisue/fern-bookmark.vim'
-
-    Plug 'simeji/winresizer'
     Plug 'lambdalisue/fern-git-status.vim'
+
+    " for python 
     Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 call plug#end()
 
@@ -45,7 +48,7 @@ imap <C-space> <Plug>(asyncomplete_force_refresh)
 " errorの内容をファイルに表示する
 let g:lsp_signs_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
-let g:lsp_settings = { 'pylsp-all': { 'workspace_config': { 'pylsp': { 'configurationSources': ['flake8'], 'plugins': { 'flake8': { 'enabled': 1 }, 'mccabe': { 'enabled': 0 }, 'pycodestyle': { 'enabled': 0 }, 'pyflakes': { 'enabled': 0 }, } } } } }
+let g:lsp_settings = { 'pylsp-all': { 'workspace_config': { 'pylsp': { 'configurationSources': ['flake8'], 'plugins': { 'flake8': { 'enabled': 1 }, 'mccabe': { 'enabled': 0 }, 'pycodestyle': { 'enabled': 0 }, 'pyflakes': { 'enabled': 0 }, 'pylsp-mypy' : {'enabled':1}} } } } }
 
 " vimlatexの設定
 let g:vimtex_compiler_latexmk_engines = { '_' : '-pdfdvi' }

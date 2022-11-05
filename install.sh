@@ -14,8 +14,9 @@ echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
 # すぐにコマンドが使えるように呼び出し
 . /Users/$(whoami)/.zprofile
 
-# google driveの導入
+# google drive,dropboxのインストール
 brew install google-backup-and-sync
+brew install dropbox
 
 # chromeのインストール
 brew install google-chrome
@@ -48,4 +49,10 @@ brew install slack
 
 # python開発環境関連
 # pi
-pip install flake 8
+pip install flake8
+pip install black
+pip install mypy
+
+# mouseの速度を早くする
+defaults write "Apple Global Domain" com.apple.mouse.scaling 18.0
+#

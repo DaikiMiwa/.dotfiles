@@ -21,9 +21,6 @@ brew install dropbox
 # chromeのインストール
 brew install google-chrome
 
-# itermのインストール
-brew install iterm2
-
 # git のインストール
 brew install git
 
@@ -43,6 +40,7 @@ brew install basictex
 sudo tlmgr update --self --all
 sudo tlmgr paper a4
 sudo tlmgr install collection-langjapanese
+sudo tlmgr install latexmk
 
 # slackのインストール
 brew install slack
@@ -55,4 +53,3 @@ pip install mypy
 
 # mouseの速度を早くする
 defaults write "Apple Global Domain" com.apple.mouse.scaling 18.0
-#

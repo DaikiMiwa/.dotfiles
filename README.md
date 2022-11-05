@@ -1,5 +1,12 @@
 # .dotfiles
-## セットアップ時にやること
+## インストールの手順
+```
+git clone git@github.com:DaikiMiwa/.dotfiles.git
+cd .dotfiles
+chmod 777 install.sh
+sudo ./install.sh
+```
+
 - vimのインストール
     - 本体
     - vim-plug
@@ -12,9 +19,10 @@
     - basic tex + japanese collections
 
 - google chrome 
-    - vimium V
-    - vmimium V pdf
+    - Vimium V
+  - Vmimium V pdf
 
 - slack
 - office 一式
 - google cloud
+## セットアップ時にやること

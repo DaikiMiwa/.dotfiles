@@ -23,6 +23,7 @@ call plug#begin()
     Plug 'lambdalisue/fern-hijack.vim'
     Plug 'lambdalisue/fern-bookmark.vim'
     Plug 'lambdalisue/fern-git-status.vim'
+    Plug 'vim-autoformat/vim-autoformat'
 
     " for python 
     Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }

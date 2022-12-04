@@ -1,18 +1,28 @@
-# vim-plugのインストール
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# vim-plug for vimのインストール
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+sudo chown $USER 
+
+# vim-plug for nvimのインストール
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+# nvim用の設定ファイルの作成
+mkdir ~/.config
+mkdir ~/.config/nvim
+ln -sf ~/.dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
 
 # シンボリックリンクを貼る
 ln -sf ~/.dotfiles/.vim/.vimrc ~/.vimrc
 ln -sf ~/.dotfiles/.latex/.latexmkrc ~/.latexmkrc
 ln -sf ~/.dotfiles/.zsh/.zshrc ~/.zshrc
 
+
 # homebrewのインストール
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 
 # すぐにコマンドが使えるように呼び出し
-. /Users/$(whoami)/.zprofile
+source ~/.zprofile
 
 # google drive,dropboxのインストール
 brew install google-backup-and-sync
@@ -46,7 +56,6 @@ sudo tlmgr install latexmk
 brew install slack
 
 # python開発環境関連
-# pi
 pip install flake8
 pip install black
 pip install mypy

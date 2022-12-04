@@ -10,6 +10,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 mkdir ~/.config
 mkdir ~/.config/nvim
 ln -sf ~/.dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
+ln -sf ~/.dotfiles/.config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
 
 # シンボリックリンクを貼る
 ln -sf ~/.dotfiles/.vim/.vimrc ~/.vimrc

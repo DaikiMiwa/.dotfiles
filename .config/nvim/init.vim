@@ -32,6 +32,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'overcache/NeoSolarized'
 call plug#end()
 
+" Fernで隠しフォルダを表示
+let g:fern#default_hidden=1
+
 " terminalに関する設定
 " 新規タブでターミナルモードを起動
 nnoremap <silent> tt <cmd>terminal<CR>
@@ -166,6 +169,7 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
+autocmd BufRead,BufNewFile *.tex TSBufDisable highlight
 " let g:vimtex_compiler_latexmk_engines = { '_' : '-pdfdvi' }
 let g:tex_flavor = "latex"
 let g:vimtex_compiler_method = 'latexmk'
@@ -175,7 +179,6 @@ filetype plugin indent on
 
 set conceallevel=2
 let g:tex_conceal="adgmb"
-
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call ShowDocumentation()<CR>

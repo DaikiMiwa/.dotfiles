@@ -35,6 +35,4 @@ SPROMPT="correct: $RED%R$DEFAULT -> $GREEN%r$DEFAULT ? [Yes/No/Abort/Edit] => "
 export PATH=/usr/local/opt/node/bin:$PATH
 export DBUS_SESSION_BUS_ADDRESS='unix:path='$DBUS_LAUNCHD_SESSION_BUS_SOCKET
 
-alias vim='nvim'
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

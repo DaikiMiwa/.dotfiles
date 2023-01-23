@@ -5,6 +5,10 @@ echo export PATH=$HOME/.local/bin$PATH >> ~/.bashrc
 
 # nodeとpythonの配置
 curl micro.mamba.pm/install.sh | bash
+./bin/micromamba shell init -s bash -p ~/micromamba  # this writes to your .bashrc file
+source ~/.bashrc
+micromamba install 3.10
+micromamba shell 3.10
 
 # 仮想環境の配置
 mkdir ~/.local/envs
@@ -12,8 +16,11 @@ cd ~/.local/envs
 python -m venv .env
 ~/.local/envs/.env/bin/pip install -r ~/.dotfiles/requirements.txt
 cd ~
-wget https://nodejs.org/dist/v18.13.0/node-v18.13.0-linux-x64.tar.xz && tar -xvzf node-v18.13.0-linux-x64.tar.gz 
+wget https://nodejs.org/dist/v18.13.0/node-v18.13.0-linux-x64.tar.xz && tar xvf node-v18.13.0-linux-x64.tar.gz 
 mv node-v18.13.0-linux-x64.tar.gz/* ~.local/
+
+pip install pynvim
+npm i -g neovim
 
 # nvim用の設定ファイルの作成
 mkdir ~/.config

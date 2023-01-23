@@ -1,36 +1,35 @@
 call plug#begin('~/.local/share/nvim/plugged')
+    " Git
+    Plug 'tpope/vim-fugitive'
+    Plug 'itchyny/vim-gitbranch'
+    
+    " 基本
+    Plug 'tpope/vim-surround'
+    Plug 'simeji/winresizer'
+
+    " 操作
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'lifepillar/vim-solarized8'
-	Plug 'shaunsingh/solarized.nvim'
+    Plug 'liuchengxu/vista.vim'
+
+    " 見た目
 	Plug 'itchyny/lightline.vim'
-    Plug 'simeji/winresizer'
-    Plug 'tpope/vim-surround'
-    Plug 'itchyny/vim-gitbranch'
-    Plug 'tpope/vim-fugitive'
+    Plug 'overcache/NeoSolarized'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'simrat39/symbols-outline.nvim'
 
     " snippets
     Plug 'SirVer/ultisnips'
 
-    " tex
-    Plug 'lervag/vimtex', {'tag': 'v1.6'}
-    Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
-    
     " ファイラー
     Plug 'lambdalisue/fern.vim'
     Plug 'lambdalisue/fern-hijack.vim'
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-
-    " markdown
-    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-    Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
-
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'simrat39/symbols-outline.nvim'
-    Plug 'liuchengxu/vista.vim'
-    Plug 'overcache/NeoSolarized'
 call plug#end()
+
+" Path
+let g:python3_host_prog = expand('~/.local/envs/.env/bin/python')
+let g:coc_node_path = '/usr/local/opt/node/bin/node'
 
 " Fernで隠しフォルダを表示
 let g:fern#default_hidden=1
@@ -50,7 +49,6 @@ autocmd TermOpen * setlocal nonumber
 
 " vimのターミナルと同じ操作でペーストする
 tnoremap <expr> <C-W> '<C-\><C-n>"'.nr2char(getchar()).'pi'
-
 tnoremap <C-[> <C-\><C-n>
 tnoremap <C-W>n       <cmd>new<cr>
 tnoremap <C-W><C-N>   <cmd>new<cr>
@@ -98,8 +96,6 @@ tnoremap <C-W>+       <cmd>wincmd +<cr>
 tnoremap <C-W>z       <cmd>pclose<cr>
 tnoremap <C-W><C-Z>   <cmd>pclose<cr>
 
-let g:python3_host_prog = expand('~/.venv/neovim3/bin/python')
-
 " This code should go in your vimrc or init.vim
 let g:UltiSnipsExpandTrigger       = '<c-j>'    " use Tab to expand snippets
 let g:UltiSnipsJumpForwardTrigger  = '<c-l>'    " use Tab to move forward through tabstops
@@ -120,13 +116,9 @@ set shiftwidth=4
 set expandtab
 let localmapleader = "\\"
 let mapleader = "\<Space>"
-colorscheme hybrid
 
 " 基本表示設定
 set number
-
-" Cocの設定
-let g:coc_node_path = '/usr/local/opt/node/bin/node'
 
 nmap <Leader>f [fzf-p]
 xmap <Leader>f [fzf-p]
@@ -181,15 +173,6 @@ augroup mygroup
 augroup end
 
 autocmd BufRead,BufNewFile *.tex TSBufDisable highlight
-" let g:vimtex_compiler_latexmk_engines = { '_' : '-pdfdvi' }
-let g:tex_flavor = "latex"
-let g:vimtex_compiler_method = 'latexmk'
-let g:vimtex_view_general_viewer = 'zathura'
-let g:vimtex_view_general_options = "-x \"nvr +%{line} %{input}\" --synctex-forward @line:0:@tex @pdf"
-filetype plugin indent on
-
-set conceallevel=2
-let g:tex_conceal="adgmb"
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call ShowDocumentation()<CR>

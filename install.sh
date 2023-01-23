@@ -1,10 +1,19 @@
-# vim-plug for vimのインストール
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-sudo chown $USER 
+# 準備
+mkdir ~/.local
+mkdir ~/.local/bin
+echo export PATH=$HOME/.local/bin$PATH >> ~/.bashrc
 
-# vim-plug for nvimのインストール
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+# nodeとpythonの配置
+curl micro.mamba.pm/install.sh | bash
+
+# 仮想環境の配置
+mkdir ~/.local/envs
+cd ~/.local/envs
+python -m venv .env
+~/.local/envs/.env/bin/pip install -r ~/.dotfiles/requirements.txt
+cd ~
+wget https://nodejs.org/dist/v18.13.0/node-v18.13.0-linux-x64.tar.xz && tar -xvzf node-v18.13.0-linux-x64.tar.gz 
+mv node-v18.13.0-linux-x64.tar.gz/* ~.local/
 
 # nvim用の設定ファイルの作成
 mkdir ~/.config
@@ -12,54 +21,17 @@ mkdir ~/.config/nvim
 ln -sf ~/.dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
 ln -sf ~/.dotfiles/.config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
 
-# シンボリックリンクを貼る
-ln -sf ~/.dotfiles/.vim/.vimrc ~/.vimrc
-ln -sf ~/.dotfiles/.latex/.latexmkrc ~/.latexmkrc
-ln -sf ~/.dotfiles/.zsh/.zshrc ~/.zshrc
+# vim-plug for nvimのインストール
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
+# neovimの入手
+wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+mv nvim.appimage ~/.local/bin/nvim
 
-# homebrewのインストール
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+# PlugInのインストール
+nvim --headless +PlugInstall +qall
 
-# すぐにコマンドが使えるように呼び出し
-source ~/.zprofile
-
-# google drive,dropboxのインストール
-brew install google-backup-and-sync
-brew install dropbox
-
-# chromeのインストール
-brew install google-chrome
-
-# git のインストール
-brew install git
-
-# pyenvのインストール
-brew install pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-source ~/.zshrc
-
-pyenv install 3.10.6
-pyenv global 3.10.6
-
-# tex関連のインストール
-brew install basictex
-sudo tlmgr update --self --all
-sudo tlmgr paper a4
-sudo tlmgr install collection-langjapanese
-sudo tlmgr install latexmk
-
-# slackのインストール
-brew install slack
-
-# python開発環境関連
-pip install flake8
-pip install black
-pip install mypy
-
-# mouseの速度を早くする
-defaults write "Apple Global Domain" com.apple.mouse.scaling 18.0
+# Coc-PlugInのインストール
+COC='coc-pyright coc-json'
+cd ~/.config/coc/extensions && npm install $COC --global --only=prod

@@ -106,6 +106,14 @@ let g:UltiSnipsJumpForwardTrigger  = '<c-l>'    " use Tab to move forward throug
 let g:UltiSnipsJumpBackwardTrigger = '<c-h>'  " use Shift-Tab to move backward through tabstops
 let g:UltiSnipsSnippetDirectories=['~/.config/nvim/UltiSnips']
 
+set clipboard=unnamed
+
+" Tabの設定
+nmap <Leader>n :bnext<CR>
+nmap <Leader>p :bprev<CR>
+xmap <Leader>n :bnext<CR>
+xmap <Leader>p :bprev<CR>
+
 " 基本入力設定
 set tabstop=4
 set shiftwidth=4
@@ -116,6 +124,9 @@ colorscheme hybrid
 
 " 基本表示設定
 set number
+
+" Cocの設定
+let g:coc_node_path = '/usr/local/opt/node/bin/node'
 
 nmap <Leader>f [fzf-p]
 xmap <Leader>f [fzf-p]

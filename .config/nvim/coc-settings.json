@@ -1,9 +1,10 @@
 {
   "python.formatting.provider": "black",
   "python.sortImports.path": "isort",
-  "python.analysis.typeCheckingMode": "strict",
-  "python.linting.pycodestyleEnabled": true,
-  "python.linting.pydocstyleEnabled": true,
+  "python.analysis.typeCheckingMode": "off",
+  "python.linting.pycodestyleEnabled": false,
+  "python.linting.pydocstyleEnabled": false,
+  "python.analysis.diagnosticMode":"workspace",
   "coc.source.vimtex.filetypes": [
     "tex",
     "plaintex"

@@ -9,6 +9,19 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tpope/vim-surround'
     Plug 'itchyny/vim-gitbranch'
     Plug 'tpope/vim-fugitive'
+    Plug 'bfredl/nvim-ipy'
+    Plug 'goerz/jupytext.vim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'antoinemadec/FixCursorHold.nvim'
+    Plug 'nvim-neotest/neotest'
+    Plug 'mfussenegger/nvim-dap'
+    Plug 'rcarriga/nvim-dap-ui'
+    Plug 'mfussenegger/nvim-dap-python'
+    Plug 'nvim-neotest/neotest-python'
+    Plug 'kiyoon/jupynium.nvim', { 'do': 'pip3 install --user .' }
+    " Plug 'kiyoon/jupynium.nvim', { 'do': '~/miniconda3/envs/jupynium/bin/pip install .' }
+    Plug 'rcarriga/nvim-notify'  " optional
+
 
     " snippets
     Plug 'SirVer/ultisnips'
@@ -126,7 +139,7 @@ colorscheme hybrid
 set number
 
 " Cocの設定
-let g:coc_node_path = '/usr/local/opt/node/bin/node'
+let g:coc_node_path = '/Users/miwanodaiki/.nvm/versions/node/v16.19.0/bin/node'
 
 nmap <Leader>f [fzf-p]
 xmap <Leader>f [fzf-p]
@@ -148,6 +161,11 @@ nnoremap <silent> [fzf-p]t     :<C-u>CocCommand fzf-preview.BufferTags<CR>
 nnoremap <silent> [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
 nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
 nnoremap <silent> [fzf-p]o     :<C-u>CocCommand fzf-preview.CocOutline<CR>
+
+nnoremap <silent> <Leader>r :JupyniumExecuteSelectedCells<CR>
+nnoremap <silent> <Leader>s :JupyniumSaveIpynb<CR>
+nnoremap <silent> <Leader>jt :JupyniumLoadFromIpynbTabAndStartSync <CR>
+nnoremap <expr> <Leader>h <Cmd> echo(getchar())
 
 " setting for python formating
 function! PythonFormat() abort
@@ -251,6 +269,19 @@ let g:vista_ctags_cmd = {
       \ 'haskell': 'hasktags -x -o - -c',
       \ }
 
+command! -nargs=0 RunQtConsole call jobstart("jupyter qtconsole --JupyterWidget.include_other_output=True")
+
+let g:ipy_celldef = '^##' " regex for cell start and end
+
+nmap <silent> <leader>jqt :RunQtConsole<Enter>
+nmap <silent> <leader>jk :IPython<Space>--existing<Space>--no-window<Enter>
+nmap <silent> <leader>jc <Plug>(IPy-RunCell)
+nmap <silent> <leader>ja <Plug>(IPy-RunAll)
+
+let g:jupytext_enable = 1
+let g:jupytext_fmt = "py"
+let g:ipy_celldef = '#'
+
 " To enable fzf's preview window set g:vista_fzf_preview.
 " The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
 " For example:
@@ -274,6 +305,150 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
+
+lua << EOF
+require('dap-python').setup(os.getenv("VIRTUAL_ENV") .. '/bin/python')
+require("neotest").setup({
+  adapters = {
+    require("neotest-python")({
+        -- Extra arguments for nvim-dap configuration
+        -- See https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for values
+        dap = { justMyCode = true },
+        -- Command line arguments for runner
+        -- Can also be a function to return dynamic values
+        args = {"--log-level", "DEBUG"},
+        -- Runner to use. Will use pytest if available by default.
+        -- Can be a function to return dynamic value.
+        runner = "pytest",
+        -- Custom python path for the runner.
+        -- Can be a string or a list of strings.
+        -- Can also be a function to return dynamic value.
+        -- If not provided, the path will be inferred by checking for 
+        -- virtual envs in the local directory and for Pipenev/Poetry configs
+        python = ".venv/bin/python"
+        -- Returns if a given file path is a test file.
+        -- NB: This function is called a lot so don't perform any heavy tasks within it.
+    })
+  }
+})
+vim.api.nvim_set_keymap('n', '<leader>s', ':lua require("neotest").summary.toggle()<CR>' , {})
+vim.api.nvim_set_keymap('n', '<F5>', ':DapContinue<CR>', { silent = true ,noremap = true,})
+vim.api.nvim_set_keymap('n', '<F10>', ':DapStepOver<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', '<F11>', ':DapStepInto<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', '<F12>', ':DapStepOut<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', '<leader>b', ':DapToggleBreakpoint<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', '<leader>B', ':lua require("dap").set_breakpoint(nil, nil, vim.fn.input("Breakpoint condition: "))<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', '<leader>lp', ':lua require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', '<leader>dr', ':lua require("dap").repl.open()<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', '<leader>dl', ':lua require("dap").run_last()<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', '<leader>d', ':lua require("dapui").toggle()<CR>', {})
+
+require("dapui").setup({
+  icons = { expanded = "", collapsed = "" },
+  layouts = {
+    {
+      elements = {
+        { id = "watches", size = 0.20 },
+        { id = "stacks", size = 0.20 },
+        { id = "breakpoints", size = 0.20 },
+        { id = "scopes", size = 0.40 },
+      },
+      size = 64,
+      position = "right",
+    },
+    {
+      elements = {
+        "repl",
+        "console",
+      },
+      size = 0.20,
+      position = "bottom",
+    },
+  },
+})
+
+require("jupynium").setup({
+  -- Conda users:
+  -- python_host = "~/miniconda3/envs/jupynium/bin/python",
+  python_host = vim.g.python3_host_prog or "python",
+
+  default_notebook_URL = "localhost:8888",
+
+  -- Write jupyter command but without "notebook"
+  -- When you call :JupyniumStartAndAttachToServer and no notebook is open,
+  -- then Jupynium will open the server for you using this command. (only when notebook_URL is localhost)
+  jupyter_command = "jupyter",
+  -- jupyter_command = "~/miniconda3/bin/jupyter",
+
+  -- Used when notebook is launched by using jupyter_command.
+  -- If nil or "", it will open at the git directory of the current buffer,
+  -- but still navigate to the directory of the current buffer. (e.g. localhost:8888/tree/path/to/buffer)
+  notebook_dir = nil,
+
+  -- Used to remember the last session (password etc.).
+  -- You may need to change the path.
+  firefox_profiles_ini_path = vim.fn.isdirectory(vim.fn.expand "/Users/miwanodaiki/Library/Application Support/Firefox  ")
+      and "/Users/miwanodaiki/Library/Application Support/Firefox/profiles.ini"
+    or  "/Users/miwanodaiki/Library/Application Support/Firefox/profiles.ini",
+  firefox_profile_name = nil, -- nil means the default profile
+
+  -- Open the Jupynium server if it is not already running
+  -- which means that it will open the Selenium browser when you open this file.
+  -- Related command :JupyniumStartAndAttachToServer
+  auto_start_server = {
+    enable = true,
+    file_pattern = { "*.ju.*" },
+  },
+
+  -- Attach current nvim to the Jupynium server
+  -- Without this step, you can't use :JupyniumStartSync
+  -- Related command :JupyniumAttachToServer
+  auto_attach_to_server = {
+    enable = true,
+    file_pattern = { "*.ju.*", "*.md" },
+  },
+
+  -- Automatically open an Untitled.ipynb file on Notebook
+  -- when you open a .ju.py file on nvim.
+  -- Related command :JupyniumStartSync
+  auto_start_sync = {
+    enable = true,
+    file_pattern = { "*.ju.*", "*.md" },
+  },
+
+  -- Automatically keep filename.ipynb copy of filename.ju.py
+  -- by downloading from the Jupyter Notebook server.
+  -- WARNING: this will overwrite the file without asking
+  -- Related command :JupyniumDownloadIpynb
+  auto_download_ipynb = true,
+
+  -- Always scroll to the current cell.
+  -- Related command :JupyniumScrollToCell
+  autoscroll = {
+    enable = true,
+    mode = "always", -- "always" or "invisible"
+    cell = {
+      top_margin_percent = 20,
+    },
+  },
+
+  scroll = {
+    page = { step = 0.5 },
+    cell = {
+      top_margin_percent = 20,
+    },
+  },
+
+  use_default_keybindings = true,
+  textobjects = {
+    use_default_keybindings = true,
+  },
+
+  -- Dim all cells except the current one
+  -- Related command :JupyniumShortsightedToggle
+  shortsighted = false,
+})
+EOF
 
 lua << EOF
 require'nvim-treesitter.configs'.setup {

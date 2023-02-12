@@ -4,40 +4,46 @@ vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
     -- Packer can manage itself
+    --
+    use 'kiyoon/jupynium.nvim'
+    use 'jpalardy/vim-slime'
     use 'wbthomason/packer.nvim'
     use 'folke/tokyonight.nvim'
+    use 'junegunn/fzf.vim'
+    use {'junegunn/fzf'}
+    use 'simrat39/symbols-outline.nvim'
 
     use {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.1',
         -- or                            , branch = '0.1.x',
-        requires = { { 'nvim-lua/plenary.nvim' } }
+        requires = {{'nvim-lua/plenary.nvim'}}
     }
-
-    use({ 'nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' } })
+    use('nvim-treesitter/nvim-treesitter')
     use('nvim-treesitter/playground')
     use('ThePrimeagen/harpoon')
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
 
-    use { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" }
+    use {"williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim"}
     use("jose-elias-alvarez/null-ls.nvim")
     use("jay-babu/mason-null-ls.nvim")
-    use { 'neovim/nvim-lspconfig' } -- Required
-    use { 'ray-x/lsp_signature.nvim' }
-    use { 'hrsh7th/nvim-cmp' } -- Required
-    use { 'hrsh7th/cmp-nvim-lsp' } -- Required
-    use { 'hrsh7th/cmp-buffer' } -- Optional
-    use { 'hrsh7th/cmp-path' } -- Optional
-    use { 'hrsh7th/vim-vsnip' } -- Optional
-    use { 'hrsh7th/cmp-vsnip' } -- Optional
-    use { 'onsails/lspkind.nvim' }
+    use {'neovim/nvim-lspconfig'} -- Required
+    use {'ray-x/lsp_signature.nvim'}
+    use {'hrsh7th/nvim-cmp'} -- Required
+    use {'hrsh7th/cmp-nvim-lsp'} -- Required
+    use {'hrsh7th/cmp-buffer'} -- Optional
+    use {'hrsh7th/cmp-path'} -- Optional
+    use {'hrsh7th/vim-vsnip'} -- Optional
+    use {'hrsh7th/cmp-vsnip'} -- Optional
+    use {'onsails/lspkind.nvim'}
 
     -- use{'neoclide/coc.nvim', branch='release'}
     use('tpope/vim-surround')
     use('simeji/winresizer')
     use('lambdalisue/fern.vim')
     use('lambdalisue/fern-hijack.vim')
+    use('lambdalisue/fern-bookmark.vim')
     use('nvim-neotest/neotest')
     use('nvim-neotest/neotest-python')
     use('mfussenegger/nvim-dap')
@@ -63,4 +69,7 @@ return require('packer').startup(function(use)
     use('RishabhRD/nvim-lsputils')
     use('RishabhRD/popfix')
     use('kdheepak/lazygit.nvim')
+    use('zbirenbaum/copilot.lua')
+    use('windwp/nvim-ts-autotag')
+    use{ 'epwalsh/obsidian.nvim',tag='v1.6.1' }
 end)

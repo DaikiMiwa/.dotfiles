@@ -1,3 +1,22 @@
+function Python_path()
+    local venv_path = os.getenv("VIRTUAL_ENV")
+    if venv_path == nil then
+        return '/Users/miwanodaiki/.pyenv/shims/python'
+    else
+        print(venv_path .. '/bin/python')
+        return venv_path .. '/bin/python'
+    end
+end
+
+function Venv_path()
+    local venv_path = os.getenv("VIRTUAL_ENV")
+    if venv_path == nil then
+        return '/Users/miwanodaiki/.pyenv'
+    else
+        return venv_path
+    end
+end
+
 local on_attach = function(client, bufnr)
     -- LSPが持つフォーマット機能を無効化する
     -- →例えばtsserverはデフォルトでフォーマット機能を提供しますが、利用したくない場合はコメントアウトを解除してください
@@ -8,23 +27,23 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
     vim.keymap.set("n", "<leader>vws",
-                   function() vim.lsp.buf.workspace_symbol() end, opts)
+        function() vim.lsp.buf.workspace_symbol() end, opts)
     vim.keymap.set("n", "<leader>vd",
-                   function() vim.diagnostic.open_float() end, opts)
+        function() vim.diagnostic.open_float() end, opts)
     vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
     vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
     vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end,
-                   opts)
+        opts)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end,
-                   opts)
+        opts)
     vim.keymap
         .set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("n", "<leader>ld", function() vim.diagnostic.setqflist() end,
-                   opts)
+        opts)
 end
 
 vim.api.nvim_create_autocmd('DiagnosticChanged', {
-    callback = function(args) vim.diagnostic.setqflist({open = false}) end
+    callback = function(args) vim.diagnostic.setqflist({ open = false }) end
 })
 
 -- 補完プラグインであるcmp_nvim_lspをLSPと連携させています（後述）
@@ -50,26 +69,26 @@ require("mason-lspconfig").setup_handlers {
         require("lspconfig").tflint.setup {
             root_dir = require("lspconfig/util").root_pattern("*.tf")
         }
-        require'lspconfig'.sumneko_lua.setup {
-            -- ... other configs
-            settings = {Lua = {diagnostics = {globals = {'vim'}}}}
+        require('lspconfig').pyright.setup {
+            on_attach = on_attach,
+            settings = {
+                pyright = { autoImportCompletion = true },
+                python = {
+                    analysis = {
+                        autoSearchPaths = true,
+                        diagnosticMode = 'workspace',
+                        useLibraryCodeForTypes = true,
+                        typeCheckingMode = 'basic'
+                    },
+                    venvPath = Venv_path(),
+                    pythonPath = Python_path()
+                }
+            }
         }
-        -- require("lspconfig").pyright.setup {
-        --    settings = {
-        --        python = {
-        --            venvPath = ".",
-        --            pythonPath = "./.venv/bin/python",
-        --            analysis = {
-        --                extraPaths = { "." },
-        --                diagnosticMode = "workspace",
-        --            }
-        --        }
-        --    }
-        -- }
     end
 }
 
-vim.diagnostic.config({virtual_text = true})
+vim.diagnostic.config({ virtual_text = true })
 
 local cfg = {
     debug = false, -- set to true to enable debug logging
@@ -113,7 +132,7 @@ local cfg = {
     always_trigger = false, -- sometime show signature on new line or in middle of parameter can be confusing, set it to false for #58
 
     auto_close_after = nil, -- autoclose signature float win after x sec, disabled if nil.
-    extra_trigger_chars = {"("}, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
+    extra_trigger_chars = { "(" }, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
     zindex = 200, -- by default it will be on top of all floating windows, set to <= 50 send it to bottom
 
     padding = '', -- character to pad on left and right of signature can be ' ', or '|'  etc

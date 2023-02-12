@@ -44,11 +44,13 @@ cmp.setup.cmdline('/', {
         { name = 'buffer' } --ソース類を設定
     }
 })
-cmp.setup.cmdline(":", {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-        { name = "path" }, --ソース類を設定
-    },
+
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
 })
 
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')

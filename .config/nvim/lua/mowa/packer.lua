@@ -5,6 +5,8 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
     -- Packer can manage itself
     --
+    use 'tpope/vim-repeat'
+    use 'pappasam/nvim-repl'
     use 'xiyaowong/nvim-transparent'
     use 'kiyoon/jupynium.nvim'
     use 'jpalardy/vim-slime'

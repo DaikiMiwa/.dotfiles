@@ -43,6 +43,6 @@ vim.keymap.set("n", "<leader>s",
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", {silent = true})
 
 vim.keymap.set("n", "<leader>vpp",
-               "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/mowa/packer.lua<CR>");
+               "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/mowa/init.lua<CR>");
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 

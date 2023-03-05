@@ -15,3 +15,5 @@ vim.keymap.set({ "n", "x" }, "<space>T", "<cmd>JupyniumToggleSelectedCellsOutput
 vim.keymap.set({ "n", "x" }, "<space>R", "<cmd>JupyniumStartSync<cr>", { buffer = buf_id })
 vim.keymap.set("", "<PageUp>", "<cmd>JupyniumScrollUp<cr>", { buffer = buf_id })
 vim.keymap.set("", "<PageDown>", "<cmd>JupyniumScrollDown<cr>", { buffer = buf_id })
+
+

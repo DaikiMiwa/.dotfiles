@@ -18,8 +18,8 @@ local opts = {
     close = {"<Esc>", "q"},
     goto_location = "<Cr>",
     focus_location = "o",
-    hover_symbol = "<C-space>",
-    toggle_preview = "K",
+    --hover_symbol = "<C-space>",
+    --toggle_preview = "K",
     rename_symbol = "r",
     code_actions = "a",
     fold = "h",
@@ -62,4 +62,4 @@ local opts = {
   },
 }
 
-require("symbols-outline").setup(opts)
+-- require("symbols-outline").setup(opts)

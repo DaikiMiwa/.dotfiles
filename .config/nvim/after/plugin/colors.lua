@@ -33,3 +33,6 @@ require("tokyonight").setup({
   ---@param colors ColorScheme
   on_highlights = function(highlights, colors) end,
 })
+
+-- set nvim coloscheme in lua
+vim.cmd("colorscheme everforest")

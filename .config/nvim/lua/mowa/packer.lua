@@ -3,76 +3,91 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
-    -- Packer can manage itself
-    --
-    use 'tpope/vim-repeat'
-    use 'pappasam/nvim-repl'
-    use 'xiyaowong/nvim-transparent'
-    use 'kiyoon/jupynium.nvim'
-    use 'jpalardy/vim-slime'
-    use 'wbthomason/packer.nvim'
-    use 'folke/tokyonight.nvim'
-    use 'junegunn/fzf.vim'
-    use {'junegunn/fzf'}
-    use 'simrat39/symbols-outline.nvim'
+  -- Packer can manage itself
+  use 'wbthomason/packer.nvim'
+  use 'tpope/vim-repeat'
 
-    use {
-        'nvim-telescope/telescope.nvim',
-        tag = '0.1.1',
-        -- or                            , branch = '0.1.x',
-        requires = {{'nvim-lua/plenary.nvim'}}
-    }
-    use('nvim-treesitter/nvim-treesitter')
-    use('nvim-treesitter/playground')
-    use('ThePrimeagen/harpoon')
-    use('mbbill/undotree')
-    use('tpope/vim-fugitive')
+  -- colorscheme
+  use 'folke/tokyonight.nvim'
+  use 'sainnhe/everforest'
+  use 'nvim-treesitter/nvim-treesitter'
+  use 'nvim-treesitter/playground'
 
-    use {"williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim"}
-    use("jose-elias-alvarez/null-ls.nvim")
-    use("jay-babu/mason-null-ls.nvim")
-    use {'neovim/nvim-lspconfig'} -- Required
-    use {'ray-x/lsp_signature.nvim'}
-    use {'hrsh7th/nvim-cmp'} -- Required
-    use {'hrsh7th/cmp-nvim-lsp'} -- Required
-    use {'hrsh7th/cmp-buffer'} -- Optional
-    use {'hrsh7th/cmp-path'} -- Optional
-    use {'hrsh7th/vim-vsnip'} -- Optional
-    use {'hrsh7th/cmp-vsnip'} -- Optional
-    use {'onsails/lspkind.nvim'}
+  -- repl
+  use 'pappasam/nvim-repl'
 
-    -- use{'neoclide/coc.nvim', branch='release'}
-    use('tpope/vim-surround')
-    use('simeji/winresizer')
-    use('lambdalisue/fern.vim')
-    use('lambdalisue/fern-hijack.vim')
-    use('lambdalisue/fern-bookmark.vim')
-    use('nvim-neotest/neotest')
-    use('nvim-neotest/neotest-python')
-    use('mfussenegger/nvim-dap')
-    use('rcarriga/nvim-dap-ui')
-    use('mfussenegger/nvim-dap-python')
-    use('lukas-reineke/lsp-format.nvim')
-    use {
-        "windwp/nvim-autopairs",
-        config = function() require("nvim-autopairs").setup {} end
+  -- util
+  use 'ThePrimeagen/harpoon'
+  use 'mbbill/undotree'
+  use 'simeji/winresizer'
+  use 'windwp/nvim-ts-autotag'
+  use 'zbirenbaum/copilot.lua'
+  use {
+    "windwp/nvim-autopairs",
+    config = function() require("nvim-autopairs").setup {} end
+  }
+  use {
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  }
+
+  -- fuzzy finder
+  use {
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.1',
+    -- or                            , branch = '0.1.x',
+    requires = { { 'nvim-lua/plenary.nvim' } }
+  }
+
+  -- completion
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/nvim-cmp'
+
+  -- Git
+  use 'tpope/vim-fugitive'
+  use 'kdheepak/lazygit.nvim'
+
+  -- lsp
+  use 'neovim/nvim-lspconfig' -- Required
+  use "williamboman/mason.nvim"
+  use "williamboman/mason-lspconfig.nvim"
+  use "jose-elias-alvarez/null-ls.nvim"
+  use "jay-babu/mason-null-ls.nvim"
+  use { "ray-x/lsp_signature.nvim", }
+  use({
+    "glepnir/lspsaga.nvim",
+    opt = true,
+    branch = "main",
+    event = "LspAttach",
+    config = function()
+      require("lspsaga").setup({})
+    end,
+    requires = {
+      { "nvim-tree/nvim-web-devicons" },
+      --Please make sure you install markdown and markdown_inline parser
+      { "nvim-treesitter/nvim-treesitter" }
     }
-    use {
-        "folke/trouble.nvim",
-        requires = "nvim-tree/nvim-web-devicons",
-        config = function()
-            require("trouble").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
-        end
-    }
-    use('sainnhe/everforest')
-    use('RishabhRD/nvim-lsputils')
-    use('RishabhRD/popfix')
-    use('kdheepak/lazygit.nvim')
-    use('zbirenbaum/copilot.lua')
-    use('windwp/nvim-ts-autotag')
-    use{ 'epwalsh/obsidian.nvim',tag='v1.6.1' }
+  })
+
+  -- test
+  use('nvim-neotest/neotest')
+  use('nvim-neotest/neotest-python')
+
+  -- dap
+  use('rcarriga/nvim-dap-ui')
+  use('mfussenegger/nvim-dap-python')
+  use('mfussenegger/nvim-dap')
+
+  -- filer
+  use('lambdalisue/fern.vim')
+  use('lambdalisue/fern-hijack.vim')
+  use('lambdalisue/fern-bookmark.vim')
 end)

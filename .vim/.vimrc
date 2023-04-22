@@ -4,27 +4,26 @@ call plug#begin()
     let g:UltiSnipsExpandTrigger = '<tab>'
     let g:UltiSnipsJumpForwardTrigger = '<tab>'
     let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-    "Plug 'vim-scripts/vim-auto-save'
-    "let g:auto_save = 1
-    "let g:auto_save_silent=1
 
     Plug 'sainnhe/everforest'
+    Plug 'tomasr/molokai'
+    Plug 'tpope/vim-surround'
 
     Plug 'lervag/vimtex'
 
-        let g:vimtex_compiler_method = 'latexmk'
-        let g:vimtex_compiler_latexmk = {
-          \ 'options' : [
-          \   '-pdflualatex',
-          \   '-silent',
-          \   '-synctex=1',
-          \   '-interaction=nonstopmode',
-          \ ],
-          \ 'build_dir' : 'livepreview',
-          \}
-        let g:tex_flavor = "latex"
-        let g:vimtex_view_method='zathura'
-        let g:vimtex_quickfix_mode=0
+    let g:vimtex_compiler_method = 'latexmk'
+    let g:vimtex_compiler_latexmk = {
+                \ 'background': 1,
+                \ 'build_dir': '',
+                \ 'continuous': 1,
+                \'options' : []
+                \}
+    let g:vimtex_compiler_latexmk_engines = {"_" : "-uplatex"}
+    let g:vimtex_quickfix_mode=0
+    let g:tex_flavor='latex' 
+    let g:vimtex_view_method = 'skim' 
+    let g:vimtex_view_skim_sync = 1 
+    let g:vimtex_view_skim_activate = 1 
 
     Plug 'KeitaNakamura/tex-conceal.vim'
         set conceallevel=1
@@ -37,7 +36,7 @@ call plug#begin()
     set spelllang=en_us
     inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
-    " ファイラー
+     " ファイラー
     Plug 'lambdalisue/fern.vim'
     Plug 'lambdalisue/fern-hijack.vim'
     Plug 'lambdalisue/fern-bookmark.vim'
@@ -73,4 +72,7 @@ augroup IME
     \ )
 augroup END
 
-colorscheme everforest
+nnoremap <Leader>e :Fern . -drawer -toggle -reveal=%<CR>
+
+set background=dark
+colorscheme gruvbox

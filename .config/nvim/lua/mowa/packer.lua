@@ -12,6 +12,7 @@ return require('packer').startup(function(use)
   use 'sainnhe/everforest'
   use 'nvim-treesitter/nvim-treesitter'
   use 'nvim-treesitter/playground'
+  use 'xiyaowong/transparent.nvim'
 
   -- repl
   use 'pappasam/nvim-repl'
@@ -20,12 +21,7 @@ return require('packer').startup(function(use)
   use 'ThePrimeagen/harpoon'
   use 'mbbill/undotree'
   use 'simeji/winresizer'
-  use 'windwp/nvim-ts-autotag'
   use 'zbirenbaum/copilot.lua'
-  use {
-    "windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {} end
-  }
   use {
     "kylechui/nvim-surround",
     tag = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -78,7 +74,14 @@ return require('packer').startup(function(use)
   })
 
   -- test
-  use('nvim-neotest/neotest')
+  use {
+    "nvim-neotest/neotest",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim"
+    }
+  }
   use('nvim-neotest/neotest-python')
 
   -- dap
@@ -90,4 +93,8 @@ return require('packer').startup(function(use)
   use('lambdalisue/fern.vim')
   use('lambdalisue/fern-hijack.vim')
   use('lambdalisue/fern-bookmark.vim')
+
+  -- obsidian
+  use 'epwalsh/obsidian.nvim'
+
 end)

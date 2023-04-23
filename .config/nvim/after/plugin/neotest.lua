@@ -1,12 +1,3 @@
-function Python_path()
-    local venv_path = os.getenv("VIRTUAL_ENV")
-    if venv_path == nil then
-        return '/Users/miwanodaiki/.pyenv/shims/python'
-    else
-        print(venv_path .. '/bin/python')
-        return venv_path .. '/bin/python'
-    end
-end
 require("neotest").setup({
   adapters = {
     require("neotest-python")({
@@ -24,9 +15,6 @@ require("neotest").setup({
         -- Can also be a function to return dynamic value.
         -- If not provided, the path will be inferred by checking for 
         -- virtual envs in the local directory and for Pipenev/Poetry configs
-        python = Python_path()
-        -- Returns if a given file path is a test file.
-        -- NB: This function is called a lot so don't perform any heavy tasks within it.
     })
   }
 })

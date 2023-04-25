@@ -70,7 +70,7 @@ local cspell_append = function(opts)
   )
 
   -- cspellをリロードするため、現在行を更新してすぐ戻す
-  if vim.api.nvim_get_option_value('modifiable',{}) then
+  if vim.api.nvim_get_option_value('modifiable', {}) then
     vim.api.nvim_set_current_line(vim.api.nvim_get_current_line())
     vim.api.nvim_command('silent! undo')
   end
@@ -102,7 +102,7 @@ local cspell_custom_actions = {
         if v.source == "cspell" and
             v.col < col and col <= v.end_col and
             string.match(v.message, regex) then
-	  -- 見つかった場合、単語を抽出
+          -- 見つかった場合、単語を抽出
           word = string.gsub(v.message, regex, '%1'):lower()
           break
         end
@@ -137,4 +137,10 @@ null_ls.register(cspell_custom_actions)
 
 null_ls.setup({
   sources = sources
+})
+
+-- 以下を呼ぶことで自動的にmasonで入れたlinterやformatterが有効になる
+require('mason-null-ls').setup({
+	automatic_setup = true,
+	handlers = {}, 
 })

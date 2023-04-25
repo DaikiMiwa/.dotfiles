@@ -1,4 +1,5 @@
 local null_ls = require('null-ls')
+
 local sources = {
   null_ls.builtins.diagnostics.cspell.with({
     diagnostics_postprocess = function(diagnostic)
@@ -34,7 +35,6 @@ if vim.fn.filereadable(cspell_files.user) ~= 1 then
   io.popen('touch ' .. cspell_files.user)
 end
 
-local null_ls = require('null-ls')
 local sources = {
   null_ls.builtins.diagnostics.cspell.with({
     diagnostics_postprocess = function(diagnostic)

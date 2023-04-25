@@ -35,4 +35,4 @@ require("tokyonight").setup({
 })
 
 -- set nvim coloscheme in lua
-vim.cmd("colorscheme everforest")
+vim.cmd("colorscheme tokyonight-night")

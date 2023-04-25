@@ -18,6 +18,7 @@ return require('packer').startup(function(use)
   use 'pappasam/nvim-repl'
 
   -- util
+  use "folke/trouble.nvim"
   use 'ThePrimeagen/harpoon'
   use 'mbbill/undotree'
   use 'simeji/winresizer'

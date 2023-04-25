@@ -47,6 +47,10 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-cmdline'
   use 'hrsh7th/nvim-cmp'
 
+  -- snippet
+  use 'SirVer/ultisnips'
+  use 'quangnguyen30192/cmp-nvim-ultisnips'
+
   -- Git
   use 'tpope/vim-fugitive'
   use 'kdheepak/lazygit.nvim'

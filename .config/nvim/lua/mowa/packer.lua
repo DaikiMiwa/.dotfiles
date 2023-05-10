@@ -55,6 +55,8 @@ return require('packer').startup(function(use)
   -- Git
   use 'tpope/vim-fugitive'
   use 'kdheepak/lazygit.nvim'
+  use 'airblade/vim-gitgutter'
+
 
   -- lsp
   use 'neovim/nvim-lspconfig' -- Required

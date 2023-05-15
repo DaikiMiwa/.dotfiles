@@ -31,7 +31,6 @@ cmp.setup({
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
   }, {
-    { name = 'buffer' },
   })
 })
 
@@ -55,6 +54,9 @@ cmp.setup.cmdline({ '/', '?' }, {
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
+  matching = {
+    disallow_fuzzy_matching = false,
+  },
   sources = cmp.config.sources({
     { name = 'path' }
   }, {

@@ -3,6 +3,7 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
+
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
   use 'tpope/vim-repeat'
@@ -47,10 +48,6 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-cmdline'
   use 'hrsh7th/nvim-cmp'
-
-  -- snippet
-  use 'SirVer/ultisnips'
-  use 'quangnguyen30192/cmp-nvim-ultisnips'
 
   -- Git
   use 'tpope/vim-fugitive'
@@ -100,8 +97,15 @@ return require('packer').startup(function(use)
   use('lambdalisue/fern.vim')
   use('lambdalisue/fern-hijack.vim')
   use('lambdalisue/fern-bookmark.vim')
+  use('lambdalisue/fern-git-status.vim')
+  use('LumaKernel/fern-mapping-fzf.vim')
+  use('junegunn/fzf.vim')
+  use('junegunn/fzf')
 
   -- obsidian
   use 'epwalsh/obsidian.nvim'
+
+  -- latex
+  use 'lervag/vimtex'
 
 end)

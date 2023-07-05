@@ -108,4 +108,27 @@ return require('packer').startup(function(use)
   -- latex
   use 'lervag/vimtex'
 
+
+  -- snips
+  use({
+	"L3MON4D3/LuaSnip",
+	-- follow latest release.
+	tag = "v<CurrentMajor>.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+	-- install jsregexp (optional!:).
+	run = "make install_jsregexp"
+})use('saadparwaiz1/cmp_luasnip')
+
+  use {
+  "iurimateus/luasnip-latex-snippets.nvim",
+  -- replace "lervag/vimtex" with "nvim-treesitter/nvim-treesitter" if you're
+  -- using treesitter.
+  requires = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
+  config = function()
+    require'luasnip-latex-snippets'.setup({ use_treesitter = true })
+    -- or setup({ use_treesitter = true })
+  end,
+  -- treesitter is required for markdown
+  ft = { "tex", "markdown" },
+}
+
 end)

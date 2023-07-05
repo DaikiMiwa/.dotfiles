@@ -1,5 +1,5 @@
 local cmp = require 'cmp'
-
+local luasnip = require("luasnip")
 cmp.setup({
   -- snippet = {
   -- REQUIRED - you must specify a snippet engine
@@ -24,10 +24,28 @@ cmp.setup({
     ['<C-space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
     ['<C-y>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ["<C-l>"] = cmp.mapping(function(fallback)
+            if luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+			-- this will auto complete if our cursor in next to a word and we press tab
+            -- elseif has_words_before() then
+            --     cmp.complete()
+            else
+                fallback()
+            end
+        end, {"i", "s"}),
+    ["<C-s>"] = cmp.mapping(function(fallback)
+        if luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+        else
+            fallback()
+        end
+    end, {"i", "s"})
+
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    -- { name = 'luasnip' }, -- For luasnip users.
+    { name = 'luasnip' }, 
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
   }, {

@@ -46,6 +46,11 @@ local plugins = {
         -- Configuration here, or leave empty to use defaults
       })
     end
+  {
+  {
+    'xiyaowong/transparent.nvim'
+  },
+  {
   }
 }
 

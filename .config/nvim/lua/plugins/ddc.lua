@@ -56,22 +56,6 @@ return {
 	{ "Shougo/ddc-source-nvim-lsp", lazy = true, },
 	{ "Shougo/ddc-converter_remove_overlap", lazy = true, },
 	{
-		"Exafunction/codeium.vim",
-		lazy = true,
-		cond = false,
-		config = function ()
-			vim.g.codeium_disable_bindings = 1
-		end
-	},
-	{
-		"Shougo/ddc-source-codeium",
-		lazy = true,
-		cond = false,
-		dependencies = {
-			"Exafunction/codeium.vim",
-		}
-	},
-	{
 		"github/copilot.vim",
 		lazy = true,
 		config = function ()
@@ -103,7 +87,6 @@ return {
 			"Shougo/ddc-source-nvim-lsp",
       'LumaKernel/ddc-source-file',
 			"Shougo/ddc-converter_remove_overlap",
-			--"Shougo/ddc-source-codeium",
 			"Shougo/ddc-source-copilot",
 		},
 		config = function()

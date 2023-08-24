@@ -1,3 +1,5 @@
+vim.cmd[[colorscheme tokyonight]]
+
 vim.opt.guicursor = ""
 
 vim.opt.nu = true
@@ -23,27 +25,15 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "auto"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
-vim.g.mapleader = " "
 vim.opt.termguicolors = true
 vim.opt.pumblend=20
 
--- transparent
-require("transparent").setup({
-  groups = { -- table: default groups
-    'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
-    'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
-    'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
-    'SignColumn', 'CursorLineNr', 'EndOfBuffer',
-  },
-  extra_groups = {}, -- table: additional groups that should be cleared
-  exclude_groups = {}, -- table: groups you don't want to clear
-})
 vim.g.transparent_enabled=true
 vim.g.python3_host_prog = '~/.local/env/nvim/bin/python3'

@@ -20,6 +20,7 @@ local load_plugins = {
   require 'plugins.telescope',
   require 'plugins.git',
   require 'plugins.lspsaga',
+  require 'plugins.null_ls'
 }
 
 local plugins = {
@@ -57,6 +58,18 @@ local plugins = {
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
     }
+  },
+  {
+    'goerz/jupytext.vim',
+    config = function ()
+      vim.g["jupytext_fmt"] = 'py'
+    end
+  },
+  {
+    'lervag/vimtex',
+    config = function ()
+      
+    end
   }
 }
 

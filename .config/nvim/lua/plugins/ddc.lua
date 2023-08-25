@@ -88,8 +88,10 @@ return {
       'LumaKernel/ddc-source-file',
 			"Shougo/ddc-converter_remove_overlap",
 			"Shougo/ddc-source-copilot",
+      "Shougo/ddc-omni"
 		},
 		config = function()
+      vim.fn["pum#set_option"]({auto_select=true})
 			vim.fn["ddc#custom#patch_global"]({
 				ui = 'pum',
 				autoCompleteEvents = {'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged', 'CmdlineEnter', 'TextChangedT'},
@@ -97,10 +99,9 @@ return {
 					'copilot',
 					'nvim-lsp',
           'file',
-					--'codeium',
 					'around',
 				},
-				backspaceCompletion = true,
+				backspaceCompletion = false,
 				sourceOptions = {
 					_ = {
 						matchers = {'matcher_fuzzy'},
@@ -109,7 +110,7 @@ return {
 						minAutoCompleteLength = 3,
 					},
           ["file"] = {
-            mark = '[file]',
+            mark = '[F]',
             isVolatile = true,
             forceCompletionPattern = {[[\S/\S*]]}
           },
@@ -117,13 +118,6 @@ return {
 						mark = '[LSP]',
 						forceCompletionPattern = {[['\.\w*|:\w*|->\w*']]},
 						minAutoCompleteLength = 1,
-					},
-					["input"] = {
-						mark = '[input]',
-						matchers = {},
-						minAutoCompleteLength = 0,
-						forceCompletionPattern = {[['\S/\S*|\.\w*']]},
-						isVolatile = true,
 					},
 					--codeium = {
 					--	mark = '[codeium]',
@@ -135,10 +129,10 @@ return {
 					copilot = {
 						mark = '[copilot]',
 						matchers = {},
-						minAutoCompleteLength = 0,
+						minAutoCompleteLength = 1,
 						isVolatile = true,
 					},
-					around = { mark = '[around]' },
+					around = { mark = '[A]' },
 				},
 				sourceParams = {
 					["nvim-lsp"] = {
@@ -146,12 +140,23 @@ return {
 						enableResolveItem = true,
 						enableAdditionalTextEdit = true,
 					},
-					around = { maxSize = 100 },
+					around = { maxSize = 10 },
 				},
 			})
 			vim.fn["ddc#custom#patch_filetype"]('markdown', 'sourceParams', {
-				around = { maxSize = 50 }
+				around = { maxSize = 10 }
 			})
+      vim.fn["ddc#custom#patch_filetype"]('tex', 'sourceOptions', {
+        omni = {
+          mark = 'O',
+          forceCompletionPattern = vim.g["vimtex#re#deoplete"],
+        }
+      })
+      vim.fn["ddc#custom#patch_filetype"]('tex', 'sourceOptions', {
+        omni = {
+          omnifunc = 'vimtex#omnifunc#omnifunc'
+        }
+      })
 			vim.api.nvim_create_autocmd('InsertEnter', {
 				callback = function(ev)
 					local opt = { noremap = true }
@@ -161,7 +166,8 @@ return {
 					vim.keymap.set('i', '<C-e>', [[<Cmd>call pum#map#cancel()<CR>]], opt)
 					vim.keymap.set('i', '<PageDown>', [[<Cmd>call pum#map#insert_relative_page(+1)<CR>]], opt)
 					vim.keymap.set('i', '<PageUp>', [[<Cmd>call pum#map#insert_relative_page(-1)<CR>]], opt)
-					vim.keymap.set('i', '<CR>', function() if vim.fn['pum#visible']() then return '<Cmd>call pum#map#confirm()<CR>' or '<CR>' else return '<CR>' end end, { expr = true, noremap = false })
+					-- vim.keymap.set('i', '<CR>', function() if vim.fn['pum#visible']() then return '<Cmd>call pum#map#confirm()<CR>' or '<CR>' else return '<CR>' end end, { expr = true, noremap = false })
+					vim.keymap.set('i', '<CR>', function() if vim.fn['pum#visible']() then return '<CR>' else return '<CR>' end end, { expr = true, noremap = false })
 					vim.keymap.set('i', '<C-m>', function() if vim.fn['pum#visible']() then return '<Cmd>call ddc#map#manual_complete()<CR>' else return '<C-m>' end end, { expr = true, noremap = false })
 					vim.keymap.set({'i', 's'}, '<C-l>', function() return  vim.fn['vsnip#available'](1) == 1 and '<Plug>(vsnip-expand-or-jump)' or '<C-l>' end, { expr = true, noremap = false })
 					vim.keymap.set({'i', 's'}, '<Tab>', function() return vim.fn['vsnip#jumpable'](1) == 1 and '<Plug>(vsnip-jump-next)' or '<Tab>' end, { expr = true, noremap = false })

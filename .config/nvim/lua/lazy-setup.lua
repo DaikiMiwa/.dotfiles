@@ -68,8 +68,26 @@ local plugins = {
   {
     'lervag/vimtex',
     config = function ()
-      
+      vim.cmd[[let g:tex_flavor = "latex"]]
+      vim.cmd[[let g:vimtex_compiler_method = 'latexmk']]
+      vim.cmd[[let g:vimtex_view_general_viewer = 'zathura']]
+      vim.cmd[[let g:vimtex_view_general_options = "-x \"nvr +%{line} %{input}\" --synctex-forward @line:0:@tex @pdf"]]
     end
+  },
+  {
+    'pappasam/nvim-repl',
+    config = function ()
+      vim.g["repl_filetype_commands"] = {
+        ['javascript'] = 'node',
+        ['python'] = 'ipython --no-autoindent'
+      }
+      vim.keymap.set("n","<leader>l", "<cmd>ReplToggle<CR>")
+      vim.keymap.set("n","<leader>rr", [[<Plug>ReplSendLine]])
+      vim.keymap.set("v","<leader>rr", [[<Plug>ReplSendVisual]])
+    end
+  },
+  {
+    'simeji/winresizer'
   }
 }
 

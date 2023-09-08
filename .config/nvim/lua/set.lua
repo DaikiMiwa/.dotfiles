@@ -34,6 +34,8 @@ vim.opt.colorcolumn = "80"
 
 vim.opt.termguicolors = true
 vim.opt.pumblend=20
+vim.opt.completeopt = { "menuone", "noinsert", "menu"}
 
 vim.g.transparent_enabled=true
 vim.g.python3_host_prog = '~/.local/env/nvim/bin/python3'
+

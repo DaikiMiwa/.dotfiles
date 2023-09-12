@@ -162,5 +162,6 @@ micromamba activate base
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 export PATH=/home/miwa.daiki/node/bin:$PATH
+export PATH=/home/miwa.daiki/.deno/bin:$PATH
 
 set editing-mode vi

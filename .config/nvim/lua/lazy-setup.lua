@@ -20,7 +20,8 @@ local load_plugins = {
   require 'plugins.telescope',
   require 'plugins.git',
   require 'plugins.lspsaga',
-  require 'plugins.null_ls'
+  require 'plugins.null_ls',
+  require 'plugins.test'
 }
 
 local plugins = {

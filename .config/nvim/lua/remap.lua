@@ -31,4 +31,4 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- 設定ファイルを開く
 vim.keymap.set("n", "<leader>vpp",
-    "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/mowa/init.lua<CR>");
+    "<cmd>e ~/.config/nvim/<CR>");

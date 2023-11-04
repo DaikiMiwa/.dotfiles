@@ -37,5 +37,5 @@ return {
       --silent = true,
       --})
     end
-  }
+  },
 }

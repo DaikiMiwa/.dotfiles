@@ -24,11 +24,11 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 -- 現在のカーソル下の文字列を置換する
-vim.keymap.set("n", "<leader>s",
-    [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 -- 現在のファイルに実行権限を与える
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- 設定ファイルを開く
-vim.keymap.set("n", "<leader>vpp",
-    "<cmd>e ~/.config/nvim/<CR>");
+vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.config/nvim/<CR>")
+
+vim.keymap.set("n", "<leader>td", "<cmd>vs .todo.md<CR>")

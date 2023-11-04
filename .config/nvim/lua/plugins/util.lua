@@ -1,32 +1,4 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
-end
-vim.opt.rtp:prepend(lazypath)
-
-local load_plugins = {
-	require("plugins.ddc"),
-	require("plugins.fern"),
-	require("plugins.lualine"),
-	require("plugins.colorscheme"),
-	require("plugins.mason_lsp_config"),
-	require("plugins.telescope"),
-	require("plugins.git"),
-	require("plugins.lspsaga"),
-	require("plugins.null_ls"),
-	require("plugins.test"),
-	require("plugins.dap"),
-	--require "plugins.treenvim",
-}
-
-local plugins = {
+return {
 	{
 		"nvim-treesitter/nvim-treesitter", -- optional
 	},
@@ -108,14 +80,49 @@ local plugins = {
 		"ellisonleao/gruvbox.nvim",
 		priority = 1000,
 	},
+	{
+		"wsdjeg/vim-todo",
+	},
+	{
+		"luukvbaal/statuscol.nvim",
+		config = function()
+			local builtin = require("statuscol.builtin")
+			require("statuscol").setup({
+				-- configuration goes here, for example:
+				relculright = true,
+				segments = {
+					{ text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+					{
+						sign = { name = { "Diagnostic" }, maxwidth = 2, auto = true },
+						click = "v:lua.ScSa",
+					},
+					{ text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
+					{
+						sign = { name = { ".*" }, maxwidth = 2, colwidth = 2, auto = false, wrap = true },
+						click = "v:lua.ScSa",
+					},
+				},
+			})
+		end,
+	},
+	{
+		"epwalsh/obsidian.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("obsidian").setup({
+				dir = "/Users/miwanodaiki/Library/Mobile Documents/iCloud~md~obsidian/Documents/note_obsidian", -- no need to call 'vim.fn.expand' here
+				notes_subdir = "notes",
+
+				log_level = vim.log.levels.DEBUG,
+				daily_notes = {
+					folder = "DailyNote",
+					date_format = "%Y-%m-%d",
+					template = nil,
+					-- see below for full list of options 👇
+				},
+			})
+		end,
+	},
 }
-
-for _, t in pairs(load_plugins) do
-	for _, p in pairs(t) do
-		table.insert(plugins, p)
-	end
-end
-
-require("lazy").setup(plugins, { checker = { enable = true, frequency = 1 } })
-
-require("lspsaga").setup()

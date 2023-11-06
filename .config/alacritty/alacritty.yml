@@ -42,7 +42,7 @@ window:
   opacity: 0.9
 
 font:
-  size: 25.0
+  size: 15.0
 
   normal:
     family: 'PlemolJP35 Console NF'

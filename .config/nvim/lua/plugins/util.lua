@@ -3,16 +3,6 @@ return {
 		"nvim-treesitter/nvim-treesitter", -- optional
 	},
 	{
-		"phaazon/hop.nvim",
-		branch = "v2",
-		keys = {
-			{ "s", ":HopChar2MW<CR>" },
-		},
-		config = function()
-			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
-		end,
-	},
-	{
 		"kylechui/nvim-surround",
 		lazy = true,
 		version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -25,31 +15,6 @@ return {
 	},
 	{
 		"xiyaowong/transparent.nvim",
-	},
-	{
-		"folke/zen-mode.nvim",
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
-	},
-	{
-		"goerz/jupytext.vim",
-		config = function()
-			vim.g["jupytext_fmt"] = "py"
-		end,
-	},
-	{
-		"lervag/vimtex",
-		config = function()
-			vim.cmd([[let g:tex_flavor = "latex"]])
-			vim.cmd([[let g:vimtex_compiler_method = 'latexmk']])
-			vim.cmd([[let g:vimtex_view_general_viewer = 'zathura']])
-			vim.cmd(
-				[[let g:vimtex_view_general_options = "-x \"nvr +%{line} %{input}\" --synctex-forward @line:0:@tex @pdf"]]
-			)
-		end,
 	},
 	{
 		"pappasam/nvim-repl",
@@ -81,9 +46,6 @@ return {
 		priority = 1000,
 	},
 	{
-		"wsdjeg/vim-todo",
-	},
-	{
 		"luukvbaal/statuscol.nvim",
 		config = function()
 			local builtin = require("statuscol.builtin")
@@ -101,26 +63,6 @@ return {
 						sign = { name = { ".*" }, maxwidth = 2, colwidth = 2, auto = false, wrap = true },
 						click = "v:lua.ScSa",
 					},
-				},
-			})
-		end,
-	},
-	{
-		"epwalsh/obsidian.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		config = function()
-			require("obsidian").setup({
-				dir = "/Users/miwanodaiki/Library/Mobile Documents/iCloud~md~obsidian/Documents/note_obsidian", -- no need to call 'vim.fn.expand' here
-				notes_subdir = "notes",
-
-				log_level = vim.log.levels.DEBUG,
-				daily_notes = {
-					folder = "DailyNote",
-					date_format = "%Y-%m-%d",
-					template = nil,
-					-- see below for full list of options 👇
 				},
 			})
 		end,

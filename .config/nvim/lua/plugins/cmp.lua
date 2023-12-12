@@ -6,7 +6,8 @@ return {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
-      'hrsh7th/nvim-cmp'
+      'hrsh7th/nvim-cmp',
+      'hrsh7th/cmp-nvim-lsp-signature-help'
     },
     config = function()
       local cmp = require("cmp")
@@ -36,14 +37,16 @@ return {
         },
         snippet = {
           expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
+            require("luasnip").lsp_expand(args.body)
           end,
         },
         sources = {
           { name = "nvim_lsp" },
           { name = "buffer" },
           { name = "path" },
-          { name = "copilot" }
+          { name = "copilot" },
+          { name = 'nvim_lsp_signature_help' },
+          { name = 'luasnip' }
         },
         matching = {
           disallow_fuzzy_matching = true
@@ -53,16 +56,16 @@ return {
           ['<C-k>'] = cmp.mapping.scroll_docs(-4),
           ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-n>"] = cmp.mapping.select_next_item(),
-          ['<C-l>'] = cmp.mapping.complete(),
-          ['<C-e>'] = cmp.mapping.abort(),
-          ["<C-y>"] = cmp.mapping.confirm { select = true },
-          ["<Tab>"] = vim.schedule_wrap(function(fallback)
-            if cmp.visible() and has_words_before() then
-              cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+          ['<C-l>'] = cmp.mapping(function(fallback)
+            local luasnip = require("luasnip")
+            if luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
             else
               fallback()
             end
-          end),
+            end, {'i','s'}),
+          ['<C-e>'] = cmp.mapping.abort(),
+          ["<C-y>"] = cmp.mapping.confirm { select = true },
         }),
         completion = { completeopt = 'menu,menuone,noinsert' },
         experimental = {

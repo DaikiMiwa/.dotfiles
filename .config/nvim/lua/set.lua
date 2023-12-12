@@ -36,3 +36,7 @@ vim.opt.completeopt = { "menuone", "noinsert", "menu"}
 
 vim.g.transparent_enabled=true
 vim.g.python3_host_prog = '~/.local/env/nvim/bin/python3'
+
+vim.cmd [[
+  autocmd BufNewFile,BufRead *.test  set filetype=perl
+]]

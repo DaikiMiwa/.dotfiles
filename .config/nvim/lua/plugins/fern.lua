@@ -6,7 +6,8 @@ return {
       "lambdalisue/fern-renderer-nerdfont.vim",
       "yuki-yano/fern-preview.vim",
       "lambdalisue/fern-hijack.vim",
-      "lambdalisue/fern-git-status.vim"
+      "lambdalisue/fern-git-status.vim",
+      "LumaKernel/fern-mapping-fzf.vim"
     },
     config = function()
       vim.cmd [[

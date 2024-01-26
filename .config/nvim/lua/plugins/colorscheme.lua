@@ -1,7 +1,11 @@
 return {
-  "craftzdog/solarized-osaka.nvim",
-  lazy = false,
+  {
+    "cocopon/iceberg.vim"
+  },
+  {"craftzdog/solarized-osaka.nvim",
+    lazy = false,
 
-  priority = 1000,
-  opts = {},
+    priority = 1000,
+    opts = {},
+  }
 }

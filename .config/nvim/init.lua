@@ -15,4 +15,4 @@ end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
 
-vim.cmd [[ colorscheme solarized-osaka ]]
+vim.cmd [[ colorscheme iceberg ]]

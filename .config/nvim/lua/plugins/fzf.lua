@@ -36,4 +36,7 @@ return {
     --vim.keymap.set('n', '<leader>l', "<cmd>lua require('fzf-lua').diagnostics_document()<CR>")     
         end
     },
+  {
+    "junegunn/fzf",
+  }
 }

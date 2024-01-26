@@ -22,7 +22,7 @@ return {
 		end,
 	},
 	{
-		"iurimateus/luasnip-latex-snippets.nvim",
+		"DaikiMiwa/luasnip-latex-snippets.nvim",
 		config = function()
 			require("luasnip-latex-snippets").setup()
 			-- or setup({ use_treesitter = true })

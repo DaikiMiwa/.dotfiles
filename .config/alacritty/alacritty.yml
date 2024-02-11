@@ -25,7 +25,7 @@ window:
   # - none: neither borders nor title bar
   # - transparent: title bar, transparent background and title bar buttons
   # - buttonless: title bar, transparent background, but no title bar buttons
-  decorations: buttonless
+  decorations: full
 
   # Startup Mode (changes require restart)
   #
@@ -39,7 +39,7 @@ window:
   startup_mode: Windowed
 
   # Background opacity
-  opacity: 0.9
+  opacity: 1.0
 
 font:
   size: 15.0
@@ -54,5 +54,7 @@ font:
   offset:
     y: 1
 
+env:
+  TERM: xterm-256color
 # import:
 # - ~/.config/alacritty/theme/themes/gruvbox_material_medium_light.yaml

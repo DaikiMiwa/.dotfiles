@@ -23,6 +23,7 @@ return {
 
     vim.g.mapleader = " "
     vim.keymap.set('n', '<leader>ff', "<cmd>lua require('fzf-lua').files()<CR>")
+    vim.keymap.set('n', '<leader>re', "<cmd>lua require('fzf-lua').resume()<CR>")
     -- vim.keymap.set('n', '<leader>fg', "<cmd>lua require('fzf-lua').git_status()<CR>")
     vim.keymap.set('n', '<leader>fb', "<cmd>lua require('fzf-lua').git_branches()<CR>")
     vim.keymap.set('n', '<leader>fg', "<cmd>lua require('fzf-lua').grep()<CR>")
